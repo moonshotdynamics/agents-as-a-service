@@ -2,9 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Lottie from "lottie-react";
-import aiHeroAnimation from "../../public/animations/ai-hero.json";
-import codeAnimation from "../../public/animations/code.json";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -137,8 +134,14 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <Badge variant="secondary" className="mb-6">AI Agent as a Service · South Africa 🇿🇦</Badge>
-            <div className="mx-auto mb-8 w-40 sm:w-48">
-              <Lottie animationData={aiHeroAnimation} loop autoplay />
+            <div className="mx-auto mb-10 flex items-center justify-center">
+              <div className="relative">
+                <div className="size-20 rounded-full bg-primary/20 animate-pulse" />
+                <div className="absolute inset-0 size-20 rounded-full bg-primary/30 blur-xl animate-pulse" />
+                <div className="absolute inset-[-12px] rounded-full border border-primary/20 animate-spin" style={{ animationDuration: "8s" }} />
+                <div className="absolute inset-[-24px] rounded-full border border-primary/10 animate-spin" style={{ animationDuration: "12s", animationDirection: "reverse" }} />
+                <div className="absolute -top-1 -right-1 size-3 rounded-full bg-primary animate-ping" />
+              </div>
             </div>
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
               Hire an AI agent.<br />
@@ -230,8 +233,9 @@ export default function Home() {
         <Section className="border-t border-border/50 px-4 py-20">
           <div className="mx-auto max-w-3xl text-center">
             <Badge variant="secondary" className="mb-4">Who Built This</Badge>
-            <div className="mx-auto mb-8 w-32">
-              <Lottie animationData={codeAnimation} loop autoplay />
+            <div className="mx-auto mb-8 flex items-center justify-center gap-4 text-primary/40 font-mono text-sm">
+              <span className="animate-pulse">&lt;/&gt;</span>
+              <span className="inline-block w-2 h-4 bg-primary/60 animate-pulse" style={{ animationDuration: "1s" }} />
             </div>
             <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
               This website was built by an AI agent.
