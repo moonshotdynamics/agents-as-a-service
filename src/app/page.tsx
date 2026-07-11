@@ -133,13 +133,9 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <Badge variant="secondary" className="mb-6">AI Agent as a Service · South Africa 🇿🇦</Badge>
-            <div className="mx-auto mb-10 flex items-center justify-center">
-              {/* @ts-expect-error — dotlottie-player web component */}
-              <dotlottie-player src="/hero.lottie" autoplay loop style={{ width: 200, height: 200 }} />
-            </div>
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
               Hire an AI agent.<br />
-              <span className="hero-gradient">One subscription. Done.</span>
+              <span className="text-primary">One subscription. Done.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
               A dedicated AI agent trained on your industry, your processes, and your tone of voice. Priced in rands. Live in 48 hours.
