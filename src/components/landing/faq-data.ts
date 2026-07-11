@@ -1,5 +1,13 @@
 export const faq = [
   {
+    q: "What is an AI agent as a service?",
+    a: "An AI agent as a service is a subscription where you get a dedicated AI worker — configured for your industry, trained on your processes and tone of voice — instead of building AI automation yourself. Agents.as sets yours up within 48 hours and it works inside the tools you already use, for a flat monthly fee in rands.",
+  },
+  {
+    q: "How much does an AI agent cost in South Africa?",
+    a: "Agents.as plans are flat monthly subscriptions in rands: Starter is R499/month (one industry, up to 1 000 tasks), Professional is R1 499/month (multi-industry, up to 5 000 tasks), and Enterprise is R4 999/month (unlimited tasks, custom workflows, SLA). Every plan starts with a 14-day free trial, no credit card required.",
+  },
+  {
     q: "What exactly does the AI agent do?",
     a: "Your agent handles the repetitive, time-consuming work you don't need to touch — qualifying leads, drafting documents, answering client questions, managing schedules, analysing data, and more. It works inside your existing tools and follows your processes.",
   },

@@ -55,6 +55,17 @@ npm start       # serve the production build
   commands, structure, conventions, and non-negotiables.
 - **`CLAUDE.md`** — design-compliance directives for AI coding assistants.
 
+## SEO & GEO
+
+The site ships a full search/answer-engine layer: per-route metadata with
+canonical URLs and a title template, a generated Open Graph / Twitter card,
+a connected JSON-LD graph (Organization, WebSite, Service with real ZAR
+offers, FAQPage, breadcrumbs), `robots.txt` with explicit allowances for AI
+crawlers, `sitemap.xml`, a web manifest, and `public/llms.txt` for
+generative engines. The canonical domain is configured once in
+`src/lib/site.ts` (override with `NEXT_PUBLIC_SITE_URL`). The demo
+dashboard is deliberately `noindex`.
+
 ## Accessibility
 
 The whole motion system respects `prefers-reduced-motion` (Framer paths

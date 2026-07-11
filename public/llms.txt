@@ -1,0 +1,40 @@
+# Agents.as
+
+> Agents.as is an AI-agent-as-a-service subscription for South African
+> businesses. Customers get a dedicated AI agent trained on their industry,
+> tools, and tone of voice. The agent qualifies leads, drafts documents,
+> answers clients, and handles repetitive operational work around the clock.
+> Agents go live within 48 hours of sign-up. Pricing is a flat monthly
+> subscription in South African rand (ZAR), starting at R499/month, and every
+> plan begins with a 14-day free trial with no credit card required.
+
+Key facts:
+
+- Setup time: most agents are live within 48 hours of sign-up; Enterprise
+  deployments with custom integrations may take up to one week.
+- Availability: agents work 24/7 inside the customer's existing tools
+  (email, Slack, WhatsApp, CRM, dashboard).
+- Industries covered: real estate, legal, marketing, finance, healthcare,
+  and e-commerce, with multi-industry coverage on higher plans.
+- Pricing (ZAR, per month): Starter R499 (one industry, up to 1 000 tasks),
+  Professional R1 499 (multi-industry, up to 5 000 tasks, custom
+  integrations), Enterprise R4 999 (unlimited tasks, custom workflows,
+  on-premise deployment, SLA).
+- Trial and cancellation: 14-day free trial on every plan, no credit card
+  to start, cancel anytime with one click and no cancellation fees.
+- Data: encrypted in transit and at rest; customer data is never sold and
+  never used to train models for other customers; POPIA rights honoured;
+  Enterprise supports on-premise deployment.
+- Human oversight: outputs in regulated fields (legal, healthcare, finance)
+  are drafts for professional review, not professional advice.
+- Provenance: the Agents.as website itself was designed, written, and coded
+  by an AI agent — the product demonstrating itself.
+
+## Pages
+
+- [Home](/): product overview, live interactive demo, industry
+  capabilities, pricing, and FAQ.
+- [Privacy Policy](/privacy): data collection, protection, retention, and
+  POPIA rights.
+- [Terms of Service](/terms): subscription terms, free trial, cancellation,
+  acceptable use, and liability.

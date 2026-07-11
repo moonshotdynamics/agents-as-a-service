@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import LegalPage from "@/components/landing/legal";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Agents.as",
-  description: "How Agents.as collects, uses, and protects your data.",
+  title: "Privacy Policy",
+  description:
+    "How Agents.as collects, uses, and protects your data: minimal collection, encryption in transit and at rest, POPIA rights, and no selling of data — ever.",
+  alternates: { canonical: "/privacy" },
 };
 
 const sections = [
@@ -36,6 +38,8 @@ const sections = [
 export default function PrivacyPage() {
   return (
     <LegalPage
+      path="/privacy"
+      pageName="Privacy Policy"
       kicker="Legal"
       title="Privacy"
       accent="policy."

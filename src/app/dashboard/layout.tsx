@@ -1,18 +1,20 @@
-"use client";
+import type { Metadata } from "next";
+import AuthGate from "./auth-gate";
 
-import { useAuth, AuthProvider } from "@/lib/auth";
-import LoginPage from "./login/page";
+// The dashboard is a client-side demo behind a fake login — keep it out of
+// search indexes so the landing page carries all the ranking signal.
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
-function DashboardShell({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
-  if (!user) return <LoginPage />;
-  return <>{children}</>;
-}
-
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <AuthProvider>
-      <DashboardShell>{children}</DashboardShell>
-    </AuthProvider>
-  );
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <AuthGate>{children}</AuthGate>;
 }
