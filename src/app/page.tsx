@@ -131,9 +131,10 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section ref={heroRef} className="relative overflow-hidden px-4 pb-24 pt-20">
+        <section ref={heroRef} className="relative overflow-hidden px-4 min-h-[90vh] flex items-center">
           <ParallaxGrid />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-background" />
+          <div className="absolute inset-0 noise opacity-[0.02] pointer-events-none" />
           <motion.div
             className="relative mx-auto max-w-3xl text-center"
             initial={{ opacity: 0, y: 40 }}
@@ -142,8 +143,8 @@ export default function Home() {
           >
             <Badge variant="secondary" className="mb-6">AI Agent as a Service · South Africa 🇿🇦</Badge>
             {/* @ts-expect-error web component */}
-            <dotlottie-player src="/hero.lottie" autoplay loop className="mx-auto block mb-6" style={{ width: 200, height: 200 }} />
-            <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
+            <dotlottie-player src="/hero.lottie" autoplay loop className="mx-auto block mb-6" style={{ width: 180, height: 180 }} />
+            <h1 className="text-5xl font-light tracking-tight sm:text-6xl lg:text-8xl">
               <motion.span
                 initial="hidden"
                 animate="visible"
