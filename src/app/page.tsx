@@ -126,10 +126,7 @@ export default function Home() {
       <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <span className="text-lg font-semibold tracking-tight">Agents<span className="text-primary">.</span>as</span>
-          <div className="flex items-center gap-3">
-            <a href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
-            <Button size="sm">Get Started</Button>
-          </div>
+          <Button size="sm">Get Started</Button>
         </div>
       </nav>
 
@@ -169,7 +166,7 @@ export default function Home() {
             </p>
             <div className="mt-8 flex items-center justify-center gap-3">
               <Button size="lg">Start Free Trial</Button>
-              <Button variant="outline" size="lg">See What It Can Do</Button>
+              <a href="/dashboard" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">See What It Can Do</a>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">14-day free trial · No credit card · Cancel anytime</p>
           </motion.div>
