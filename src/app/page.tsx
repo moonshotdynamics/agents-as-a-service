@@ -2,6 +2,9 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Lottie from "lottie-react";
+import aiHeroAnimation from "../../public/animations/ai-hero.json";
+import codeAnimation from "../../public/animations/code.json";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -134,6 +137,9 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
             <Badge variant="secondary" className="mb-6">AI Agent as a Service · South Africa 🇿🇦</Badge>
+            <div className="mx-auto mb-8 w-40 sm:w-48">
+              <Lottie animationData={aiHeroAnimation} loop autoplay />
+            </div>
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
               Hire an AI agent.<br />
               <span className="text-primary">One subscription. Done.</span>
@@ -224,6 +230,9 @@ export default function Home() {
         <Section className="border-t border-border/50 px-4 py-20">
           <div className="mx-auto max-w-3xl text-center">
             <Badge variant="secondary" className="mb-4">Who Built This</Badge>
+            <div className="mx-auto mb-8 w-32">
+              <Lottie animationData={codeAnimation} loop autoplay />
+            </div>
             <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
               This website was built by an AI agent.
             </h2>
