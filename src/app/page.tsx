@@ -10,6 +10,7 @@ import Faq from "@/components/landing/faq";
 import { faq } from "@/components/landing/faq-data";
 import Cta from "@/components/landing/cta";
 import Footer from "@/components/landing/footer";
+import { processSteps } from "@/components/landing/process-data";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, PLANS } from "@/lib/site";
 
 /**
@@ -48,6 +49,26 @@ const structuredData = {
       isPartOf: { "@id": `${SITE_URL}/#website` },
       about: { "@id": `${SITE_URL}/#service` },
       inLanguage: "en-ZA",
+      // voice assistants / answer engines: read the headline + subline aloud
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: ["#hero-headline", "#hero-subline"],
+      },
+    },
+    {
+      "@type": "HowTo",
+      "@id": `${SITE_URL}/#how-it-works`,
+      name: "How to hire an AI agent for your business",
+      description:
+        "From sign-up to a working AI agent in 48 hours, in three steps.",
+      totalTime: "P2D",
+      step: processSteps.map((s, i) => ({
+        "@type": "HowToStep",
+        position: i + 1,
+        name: s.title,
+        text: s.body,
+        url: `${SITE_URL}/#process`,
+      })),
     },
     {
       "@type": "Service",

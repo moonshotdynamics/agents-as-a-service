@@ -12,6 +12,14 @@ export const faq = [
     a: "Your agent handles the repetitive, time-consuming work you don't need to touch — qualifying leads, drafting documents, answering client questions, managing schedules, analysing data, and more. It works inside your existing tools and follows your processes.",
   },
   {
+    q: "Which industries can an AI agent work in?",
+    a: "Agents.as agents are trained for real estate (lead qualification, listings, viewings), legal (contracts, demand letters, research), marketing (campaign copy, A/B testing, reporting), finance (portfolio monitoring, reconciliation, client reports), healthcare (triage, bookings, record summaries), and e-commerce (support tickets, returns, cart recovery). Professional and Enterprise plans cover multiple industries at once.",
+  },
+  {
+    q: "Do AI agents replace employees?",
+    a: "No — an agent takes over the repetitive busywork so your people can do the work that actually needs them. You stay responsible for decisions, and in regulated fields (legal, healthcare, finance) the agent's outputs are drafts for professional review, not professional advice.",
+  },
+  {
     q: "How long until my agent is ready?",
     a: "Most agents go live within 48 hours of sign-up. Enterprise deployments with custom integrations may take up to one week.",
   },
