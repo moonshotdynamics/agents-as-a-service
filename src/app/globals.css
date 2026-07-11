@@ -99,19 +99,6 @@
   background-clip: text;
 }
 
-/* ── cursor spotlight ─────────────────────── */
-
-.spotlight {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 30;
-  background: radial-gradient(600px circle at var(--mx) var(--my), oklch(0.62 0.18 270 / 0.08), transparent 80%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.spotlight.active { opacity: 1; }
-
 @layer base {
   * {
     @apply border-border outline-ring/50;

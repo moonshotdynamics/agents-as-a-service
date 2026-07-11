@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -105,24 +105,6 @@ function AnimatedGrid() {
 export default function Home() {
   const heroRef = useRef(null);
   const heroInView = useInView(heroRef, { once: true });
-  const spotlightRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = spotlightRef.current;
-    if (!el) return;
-    const onMove = (e: MouseEvent) => {
-      el.style.setProperty("--mx", `${e.clientX}px`);
-      el.style.setProperty("--my", `${e.clientY}px`);
-      el.classList.add("active");
-    };
-    const onLeave = () => el.classList.remove("active");
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseleave", onLeave);
-    return () => {
-      document.removeEventListener("mousemove", onMove);
-      document.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
 
   return (
     <>
@@ -132,8 +114,6 @@ export default function Home() {
           __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(item => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) }),
         }}
       />
-      <div ref={spotlightRef} className="spotlight" />
-
       <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <span className="text-lg font-semibold tracking-tight">Agents<span className="text-primary">.</span>as</span>
@@ -154,13 +134,8 @@ export default function Home() {
           >
             <Badge variant="secondary" className="mb-6">AI Agent as a Service · South Africa 🇿🇦</Badge>
             <div className="mx-auto mb-10 flex items-center justify-center">
-              <div className="relative">
-                <div className="size-20 rounded-full bg-primary/20 animate-pulse" />
-                <div className="absolute inset-0 size-20 rounded-full bg-primary/30 blur-xl animate-pulse" />
-                <div className="absolute inset-[-12px] rounded-full border border-primary/20 animate-spin" style={{ animationDuration: "8s" }} />
-                <div className="absolute inset-[-24px] rounded-full border border-primary/10 animate-spin" style={{ animationDuration: "12s", animationDirection: "reverse" }} />
-                <div className="absolute -top-1 -right-1 size-3 rounded-full bg-primary animate-ping" />
-              </div>
+              {/* @ts-expect-error — dotlottie-player web component */}
+              <dotlottie-player src="/hero.lottie" autoplay loop style={{ width: 200, height: 200 }} />
             </div>
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
               Hire an AI agent.<br />
