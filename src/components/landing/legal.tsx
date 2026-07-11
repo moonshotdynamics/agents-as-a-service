@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Wordmark } from "./nav";
 import { FadeIn, EASE } from "./primitives";
+import { SITE_URL, SITE_NAME } from "@/lib/site";
 
 export interface LegalSection {
   title: string;
@@ -17,6 +18,8 @@ export default function LegalPage({
   intro,
   sections,
   updated,
+  path,
+  pageName,
 }: {
   kicker: string;
   title: string;
@@ -24,9 +27,24 @@ export default function LegalPage({
   intro: string;
   sections: LegalSection[];
   updated: string;
+  path: string;
+  pageName: string;
 }) {
+  const breadcrumbs = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: SITE_NAME, item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: pageName, item: `${SITE_URL}${path}` },
+    ],
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
       {/* ambient background */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute -top-[20%] left-[15%] h-[45vh] w-[45vw] rounded-full bg-[oklch(0.45_0.20_290)] opacity-[0.08] blur-[130px]" />

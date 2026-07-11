@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import LegalPage from "@/components/landing/legal";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Agents.as",
-  description: "The terms that govern your Agents.as subscription.",
+  title: "Terms of Service",
+  description:
+    "The terms for your Agents.as AI agent subscription: monthly billing in rands, 14-day free trial, cancel anytime, acceptable use, and human oversight.",
+  alternates: { canonical: "/terms" },
 };
 
 const sections = [
@@ -36,6 +38,8 @@ const sections = [
 export default function TermsPage() {
   return (
     <LegalPage
+      path="/terms"
+      pageName="Terms of Service"
       kicker="Legal"
       title="Terms of"
       accent="service."

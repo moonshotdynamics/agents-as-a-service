@@ -70,12 +70,18 @@ pages (Playwright + a local Chromium works well for screenshots).
 ```
 src/
   app/
-    layout.tsx          # fonts, metadata (root)
+    layout.tsx          # fonts, root metadata (title template, OG, robots)
     globals.css         # design tokens (@theme + :root) and keyframes
     page.tsx            # landing page — composes landing/ sections (server)
+                        #   + JSON-LD @graph (Org, WebSite, Service, FAQ)
+    robots.ts           # robots.txt — allows AI crawlers, disallows /dashboard
+    sitemap.ts          # sitemap.xml
+    manifest.ts         # web app manifest
+    opengraph-image.tsx # generated OG card (twitter-image re-exports it)
     privacy/ terms/     # legal pages — thin wrappers around landing/legal
     dashboard/
-      layout.tsx        # client AuthProvider gate (shows login if signed out)
+      layout.tsx        # server: noindex metadata, renders AuthGate
+      auth-gate.tsx     # client AuthProvider gate (shows login if signed out)
       page.tsx          # demo analytics dashboard, per-industry data
       login/page.tsx    # fake login (any email + 3+ char password)
   components/
@@ -84,7 +90,11 @@ src/
     ui/                 # base shadcn-style components
   lib/
     auth.tsx            # fake client-side auth context
+    site.ts             # SITE_URL/name/description/plans — single source
+                        #   for all SEO surfaces (metadata, sitemap, JSON-LD)
     utils.ts            # cn()
+public/
+  llms.txt              # site summary for AI answer engines (GEO)
 ```
 
 Conventions:
@@ -96,3 +106,18 @@ Conventions:
 - One section = one file in `src/components/landing/`.
 - Section anchors need `scroll-mt-24` and a matching link in `nav.tsx`.
 - Use `next/link` for internal navigation (the linter enforces it).
+
+## SEO / GEO
+
+The site is heavily optimized for search and AI answer engines. Keep it
+that way:
+
+- The canonical domain lives in `src/lib/site.ts` (`SITE_URL`, overridable
+  via `NEXT_PUBLIC_SITE_URL`). Never hardcode URLs elsewhere.
+- Every indexable page needs a unique `title`, `description`, and
+  `alternates.canonical`. New pages must be added to `sitemap.ts`.
+- Pricing or FAQ changes must be mirrored in three places: the visible
+  component, the JSON-LD in `page.tsx` (fed by `site.ts` / `faq-data.ts`),
+  and `public/llms.txt`. They share sources on purpose — don't fork them.
+- Keep structured data honest: real prices, no invented ratings or reviews.
+- `/dashboard` stays `noindex` (thin demo content behind a fake login).

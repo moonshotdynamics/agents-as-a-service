@@ -89,7 +89,10 @@ export default function Hero() {
         </motion.div>
 
         {/* headline */}
-        <h1 className="text-balance text-[clamp(2.75rem,9vw,7.5rem)] font-light leading-[0.98] tracking-[-0.03em] text-foreground">
+        <h1
+          id="hero-headline"
+          className="text-balance text-[clamp(2.75rem,9vw,7.5rem)] font-light leading-[0.98] tracking-[-0.03em] text-foreground"
+        >
           <TextReveal text="Don’t hire more people." delay={0.25} />
           <br />
           <TextReveal text="Hire" delay={0.65} />{" "}
@@ -102,7 +105,10 @@ export default function Hero() {
 
         {/* subline */}
         <FadeIn delay={1.15} y={20}>
-          <p className="mx-auto mt-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p
+            id="hero-subline"
+            className="mx-auto mt-7 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
+          >
             A dedicated AI agent trained on your industry, your tools, and your
             tone of voice. It qualifies leads, drafts documents, answers
             clients, and files the busywork —{" "}

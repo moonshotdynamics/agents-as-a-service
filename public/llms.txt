@@ -1,0 +1,92 @@
+# Agents.as
+
+> Agents.as is an AI-agent-as-a-service subscription for South African
+> businesses. Customers get a dedicated AI agent trained on their industry,
+> tools, and tone of voice. The agent qualifies leads, drafts documents,
+> answers clients, and handles repetitive operational work around the clock.
+> Agents go live within 48 hours of sign-up. Pricing is a flat monthly
+> subscription in South African rand (ZAR), starting at R499/month, and every
+> plan begins with a 14-day free trial with no credit card required.
+
+Key facts:
+
+- Setup time: most agents are live within 48 hours of sign-up; Enterprise
+  deployments with custom integrations may take up to one week.
+- Availability: agents work 24/7 inside the customer's existing tools
+  (email, Slack, WhatsApp, CRM, dashboard).
+- Industries covered: real estate, legal, marketing, finance, healthcare,
+  and e-commerce, with multi-industry coverage on higher plans.
+- Pricing (ZAR, per month): Starter R499 (one industry, up to 1 000 tasks),
+  Professional R1 499 (multi-industry, up to 5 000 tasks, custom
+  integrations), Enterprise R4 999 (unlimited tasks, custom workflows,
+  on-premise deployment, SLA).
+- Trial and cancellation: 14-day free trial on every plan, no credit card
+  to start, cancel anytime with one click and no cancellation fees.
+- Data: encrypted in transit and at rest; customer data is never sold and
+  never used to train models for other customers; POPIA rights honoured;
+  Enterprise supports on-premise deployment.
+- Human oversight: outputs in regulated fields (legal, healthcare, finance)
+  are drafts for professional review, not professional advice.
+- Provenance: the Agents.as website itself was designed, written, and coded
+  by an AI agent — the product demonstrating itself.
+
+## How it works
+
+1. Brief us like you'd brief a new hire — pick your industry, describe the
+   workflow, point at the busywork. Fifteen minutes, no technical skills.
+2. We configure and train your agent — your tone of voice, templates, and
+   tools (email, Slack, WhatsApp, CRM), wired in and stress-tested. Live
+   within 48 hours.
+3. Delegate, monitor, scale — hand off repetitive work, watch it in your
+   dashboard, tweak behaviour anytime, add capacity as you grow.
+
+## Frequently asked questions
+
+Q: What is an AI agent as a service?
+A: A subscription where you get a dedicated AI worker — configured for your
+industry, trained on your processes and tone of voice — instead of building
+AI automation yourself. Agents.as sets yours up within 48 hours and it works
+inside the tools you already use, for a flat monthly fee in rands.
+
+Q: How much does an AI agent cost in South Africa?
+A: Agents.as plans are flat monthly subscriptions in rands: Starter is
+R499/month (one industry, up to 1 000 tasks), Professional is R1 499/month
+(multi-industry, up to 5 000 tasks), and Enterprise is R4 999/month
+(unlimited tasks, custom workflows, SLA). Every plan starts with a 14-day
+free trial, no credit card required.
+
+Q: Which industries can an AI agent work in?
+A: Real estate (lead qualification, listings, viewings), legal (contracts,
+demand letters, research), marketing (campaign copy, A/B testing,
+reporting), finance (portfolio monitoring, reconciliation, client reports),
+healthcare (triage, bookings, record summaries), and e-commerce (support
+tickets, returns, cart recovery). Professional and Enterprise plans cover
+multiple industries at once.
+
+Q: Do AI agents replace employees?
+A: No — an agent takes over the repetitive busywork so your people can do
+the work that actually needs them. You stay responsible for decisions, and
+in regulated fields (legal, healthcare, finance) outputs are drafts for
+professional review, not professional advice.
+
+Q: How long until my agent is ready?
+A: Most agents go live within 48 hours of sign-up. Enterprise deployments
+with custom integrations may take up to one week.
+
+Q: Do I need technical skills to use it?
+A: No. You interact with your agent through the tools you already use —
+email, Slack, WhatsApp, or a simple dashboard. Setup is fully handled.
+
+Q: Is my data secure?
+A: Yes. All data is encrypted in transit and at rest, is never sold, and is
+never used to train models for other customers. Enterprise plans include
+on-premise deployment if data must never leave your network.
+
+## Pages
+
+- [Home](/): product overview, live interactive demo, industry
+  capabilities, pricing, and FAQ.
+- [Privacy Policy](/privacy): data collection, protection, retention, and
+  POPIA rights.
+- [Terms of Service](/terms): subscription terms, free trial, cancellation,
+  acceptable use, and liability.
