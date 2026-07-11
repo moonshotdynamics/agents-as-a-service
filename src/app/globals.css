@@ -83,6 +83,35 @@
   --sidebar-ring: oklch(0.62 0.18 270);
 }
 
+/* ── hero gradient text ───────────────────── */
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, var(--primary), oklch(0.7 0.2 300), oklch(0.55 0.2 240), var(--primary));
+  background-size: 300% 300%;
+  animation: shimmer 6s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── cursor spotlight ─────────────────────── */
+
+.spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(600px circle at var(--mx) var(--my), oklch(0.62 0.18 270 / 0.08), transparent 80%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.spotlight.active { opacity: 1; }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

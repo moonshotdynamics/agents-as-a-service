@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -105,6 +105,24 @@ function AnimatedGrid() {
 export default function Home() {
   const heroRef = useRef(null);
   const heroInView = useInView(heroRef, { once: true });
+  const spotlightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = spotlightRef.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      el.style.setProperty("--mx", `${e.clientX}px`);
+      el.style.setProperty("--my", `${e.clientY}px`);
+      el.classList.add("active");
+    };
+    const onLeave = () => el.classList.remove("active");
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseleave", onLeave);
+    return () => {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
 
   return (
     <>
@@ -114,6 +132,7 @@ export default function Home() {
           __html: JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(item => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) }),
         }}
       />
+      <div ref={spotlightRef} className="spotlight" />
 
       <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
@@ -145,7 +164,7 @@ export default function Home() {
             </div>
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
               Hire an AI agent.<br />
-              <span className="text-primary">One subscription. Done.</span>
+              <span className="hero-gradient">One subscription. Done.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
               A dedicated AI agent trained on your industry, your processes, and your tone of voice. Priced in rands. Live in 48 hours.
