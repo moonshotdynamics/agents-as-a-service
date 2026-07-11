@@ -84,7 +84,7 @@ export default function Hero() {
             <span className="status-ping relative inline-flex size-2 rounded-full bg-emerald-400 text-emerald-400" />
           </span>
           <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            Agents online · Built in South Africa
+            Agents online
           </span>
         </motion.div>
 
