@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import Sandbox from "@/components/sandbox";
 
 /* ── data ────────────────────────────────── */
 
@@ -191,6 +192,9 @@ export default function Home() {
             </Stagger>
           </div>
         </Section>
+
+        {/* Interactive Demo Sandbox */}
+        <Sandbox />
 
         {/* How It Works */}
         <Section className="border-y border-border/50 px-4 py-20">
