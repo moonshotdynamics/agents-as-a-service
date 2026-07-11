@@ -134,7 +134,7 @@ export default function Home() {
           >
             <Badge variant="secondary" className="mb-6">AI Agent as a Service · South Africa 🇿🇦</Badge>
             {/* @ts-expect-error web component */}
-            <dotlottie-player src="/hero.lottie" autoplay loop style={{ width: 200, height: 200 }} />
+            <dotlottie-player src="/hero.lottie" autoplay loop className="mx-auto block mb-6" style={{ width: 200, height: 200 }} />
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
               Hire an AI agent.<br />
               <span className="text-primary">One subscription. Done.</span>
