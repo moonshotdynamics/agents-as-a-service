@@ -126,7 +126,10 @@ export default function Home() {
       <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <span className="text-lg font-semibold tracking-tight">Agents<span className="text-primary">.</span>as</span>
-          <Button size="sm">Get Started</Button>
+          <div className="flex items-center gap-3">
+            <a href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
+            <Button size="sm">Get Started</Button>
+          </div>
         </div>
       </nav>
 
