@@ -1,4 +1,5 @@
 import Nav from "@/components/landing/nav";
+import Versus from "@/components/landing/versus";
 import Hero from "@/components/landing/hero";
 import Marquee from "@/components/landing/marquee";
 import Bento from "@/components/landing/bento";
@@ -130,6 +131,7 @@ export default function Home() {
 
       <main className="flex-1">
         <Hero />
+        <Versus />
         <Marquee />
         <Bento />
         <Sandbox />
