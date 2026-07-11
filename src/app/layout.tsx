@@ -13,9 +13,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agents as a Service — AI Agents for Your Business",
+  title: "Hire an AI Agent — Agents as a Service | South Africa",
   description:
-    "Monthly subscription to pre-configured AI agents for real estate, legal, marketing, and more. Starting at R499/mo.",
+    "Get a dedicated AI agent trained on your industry. Handles lead gen, document drafting, client support, and more. Flat monthly subscription in rands. 48-hour setup. 14-day free trial.",
+  keywords: [
+    "AI agent as a service",
+    "hire AI agent",
+    "AI assistant for business",
+    "South Africa",
+    "ZAR pricing",
+    "automation",
+    "real estate AI",
+    "legal AI",
+    "marketing AI",
+  ],
+  openGraph: {
+    title: "Hire an AI Agent — One Subscription, Every Task Handled",
+    description:
+      "Dedicated AI agent for your business. Priced in rands. Live in 48 hours.",
+    siteName: "Agents.as",
+    locale: "en_ZA",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

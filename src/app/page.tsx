@@ -8,43 +8,42 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 
-const industries = [
+const capabilities = [
   {
     title: "Real Estate",
     description:
-      "Agent that qualifies leads, schedules viewings, and follows up with buyers 24/7.",
+      "Qualifies leads, schedules viewings, drafts property listings, and follows up with buyers 24/7.",
     badge: "Lead Gen",
   },
   {
     title: "Legal",
     description:
-      "Agent that drafts initial consultations, researches case law, and organizes documents.",
-    badge: "Research",
+      "Drafts contracts and demand letters, researches case law, organizes discovery documents.",
+    badge: "Documents",
   },
   {
     title: "Marketing",
     description:
-      "Agent that generates campaign copy, analyzes performance, and optimizes ad spend.",
+      "Writes campaign copy, analyses ad performance, generates A/B test variants, and manages content calendars.",
     badge: "Content",
   },
   {
     title: "Finance",
     description:
-      "Agent that monitors portfolios, flags anomalies, and generates client reports.",
+      "Monitors portfolios, flags anomalies, generates client reports, and reconciles transactions.",
     badge: "Analysis",
   },
   {
     title: "Healthcare",
     description:
-      "Agent that triages patient inquiries, manages appointments, and summarizes records.",
+      "Triages patient inquiries, manages appointment bookings, and summarises patient records.",
     badge: "Triage",
   },
   {
-    title: "E-Commerce",
+    title: "E‑Commerce",
     description:
-      "Agent that handles support tickets, manages inventory queries, and upsells.",
+      "Handles support tickets, answers product questions, manages returns, and recovers abandoned carts.",
     badge: "Support",
   },
 ];
@@ -55,11 +54,11 @@ const plans = [
     price: "R499",
     period: "/mo",
     features: [
-      "1 industry agent",
-      "Up to 500 conversations/mo",
+      "Dedicated AI agent",
+      "Up to 1 000 tasks/mo",
+      "One industry focus",
       "Email support",
-      "Basic analytics",
-      "Standard response time",
+      "Basic analytics dashboard",
     ],
     cta: "Start Free Trial",
     featured: false,
@@ -69,28 +68,30 @@ const plans = [
     price: "R1 499",
     period: "/mo",
     features: [
-      "3 industry agents",
-      "Up to 3 000 conversations/mo",
-      "Priority support",
+      "Dedicated AI agent",
+      "Up to 5 000 tasks/mo",
+      "Multi-industry coverage",
+      "Priority Slack support",
+      "Custom integrations",
       "Advanced analytics",
-      "Custom branding",
-      "API access",
+      "Team accounts (up to 5)",
     ],
     cta: "Start Free Trial",
     featured: true,
   },
   {
     name: "Enterprise",
-    price: "R3 999",
+    price: "R4 999",
     period: "/mo",
     features: [
-      "Unlimited agents",
-      "Unlimited conversations",
-      "Dedicated account manager",
-      "Custom integrations",
+      "Dedicated AI agent",
+      "Unlimited tasks",
+      "All industries",
+      "Dedicated success manager",
+      "Custom workflows",
+      "On-premise deployment",
       "SLA guarantee",
-      "On-premise option",
-      "Team training",
+      "Unlimited team accounts",
     ],
     cta: "Contact Sales",
     featured: false,
@@ -100,28 +101,70 @@ const plans = [
 const steps = [
   {
     step: "01",
-    title: "Pick your industry",
+    title: "Tell us about your business",
     description:
-      "Choose the agents built for your sector — real estate, legal, marketing, and more.",
+      "Pick your industry, describe your workflow, and tell us what you want automated.",
   },
   {
     step: "02",
-    title: "We configure everything",
+    title: "Your agent is configured",
     description:
-      "Your agents are set up with your workflows, tone of voice, and tools within 48 hours.",
+      "We train your agent on your tone, tools, and processes. Live within 48 hours.",
   },
   {
     step: "03",
-    title: "Go live, see results",
+    title: "Delegate and scale",
     description:
-      "Your team gets access. Monitor performance, tweak behaviour, and scale as you grow.",
+      "Hand off repetitive work. Monitor what your agent handles, tweak as needed, add capacity.",
+  },
+];
+
+const faq = [
+  {
+    q: "What exactly does the AI agent do?",
+    a: "Your agent handles the repetitive, time-consuming work you don't need to touch — qualifying leads, drafting documents, answering client questions, managing schedules, analysing data, and more. It works inside your existing tools and follows your processes.",
+  },
+  {
+    q: "How long until my agent is ready?",
+    a: "Most agents go live within 48 hours of sign-up. Enterprise deployments with custom integrations may take up to one week.",
+  },
+  {
+    q: "Can the agent work across multiple industries?",
+    a: "Yes. Professional and Enterprise plans include multi-industry coverage. Starter plans focus on one industry, and you can upgrade anytime.",
+  },
+  {
+    q: "Do I need technical skills to use it?",
+    a: "No. You interact with your agent through the tools you already use — email, Slack, WhatsApp, or a simple dashboard. We handle all the setup.",
+  },
+  {
+    q: "Is my data secure?",
+    a: "Yes. All data is encrypted in transit and at rest. Enterprise plans include on-premise deployment if you need data to never leave your network.",
+  },
+  {
+    q: "What if I need something the agent can't do?",
+    a: "Enterprise plans include custom workflow development. We build new capabilities to match your exact requirements.",
   },
 ];
 
 export default function Home() {
   return (
     <>
-      {/* Nav */}
+      {/* JSON-LD structured data for FAQ schema (AEO) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faq.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: { "@type": "Answer", text: item.a },
+            })),
+          }),
+        }}
+      />
+
       <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
           <span className="text-lg font-semibold tracking-tight">
@@ -137,55 +180,61 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
           <div className="relative mx-auto max-w-3xl text-center">
             <Badge variant="secondary" className="mb-6">
-              Now in South Africa 🇿🇦
+              AI Agent as a Service · South Africa 🇿🇦
             </Badge>
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
-              AI agents that work
+              Hire an AI agent.
               <br />
-              <span className="text-primary">while you sleep</span>
+              <span className="text-primary">One subscription. Done.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-              Pre-configured AI agents for your industry. One monthly
-              subscription. Zero setup headache. Priced in rands.
+              A dedicated AI agent trained on your industry, your processes, and
+              your tone of voice. Priced in rands. Live in 48 hours.
             </p>
             <div className="mt-8 flex items-center justify-center gap-3">
               <Button size="lg">Start Free Trial</Button>
               <Button variant="outline" size="lg">
-                See How It Works
+                See What It Can Do
               </Button>
             </div>
             <p className="mt-4 text-sm text-muted-foreground">
-              No credit card required · Cancel anytime
+              14-day free trial · No credit card · Cancel anytime
             </p>
           </div>
         </section>
 
-        {/* Industries */}
-        <section id="industries" className="px-4 py-20">
+        {/* Capabilities */}
+        <section className="px-4 py-20">
           <div className="mx-auto max-w-6xl">
             <div className="text-center">
               <Badge variant="secondary" className="mb-4">
-                Industries
+                What Your Agent Can Do
               </Badge>
               <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
-                Built for your world
+                One agent. Every industry.
               </h2>
               <p className="mt-3 text-muted-foreground">
-                Every agent is trained on your industry&apos;s language,
-                workflows, and compliance.
+                The same powerful AI adapts to your world. Here&apos;s what it
+                handles across different sectors.
               </p>
             </div>
             <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {industries.map((ind) => (
-                <Card key={ind.title} className="group transition-colors hover:border-primary/30">
+              {capabilities.map((c) => (
+                <Card
+                  key={c.title}
+                  className="group transition-colors hover:border-primary/30"
+                >
                   <CardHeader>
                     <CardTitle className="flex items-center justify-between">
-                      {ind.title}
-                      <Badge variant="outline" className="text-xs font-normal">
-                        {ind.badge}
+                      {c.title}
+                      <Badge
+                        variant="outline"
+                        className="text-xs font-normal"
+                      >
+                        {c.badge}
                       </Badge>
                     </CardTitle>
-                    <CardDescription>{ind.description}</CardDescription>
+                    <CardDescription>{c.description}</CardDescription>
                   </CardHeader>
                 </Card>
               ))}
@@ -201,10 +250,10 @@ export default function Home() {
                 How It Works
               </Badge>
               <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
-                Live in 48 hours
+                Your agent is live in 48 hours
               </h2>
               <p className="mt-3 text-muted-foreground">
-                From sign-up to deployed agents — here&apos;s what happens.
+                No engineering team required. We do the heavy lifting.
               </p>
             </div>
             <div className="mt-12 grid gap-6 sm:grid-cols-3">
@@ -231,11 +280,11 @@ export default function Home() {
                 Pricing
               </Badge>
               <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
-                Simple, flat pricing in rands
+                One price. One agent. All yours.
               </h2>
               <p className="mt-3 text-muted-foreground">
-                No hidden fees. No per-conversation billing. Just one monthly
-                price.
+                No per-task billing. No hidden fees. Just a flat monthly
+                subscription in rands.
               </p>
             </div>
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -284,15 +333,58 @@ export default function Home() {
           </div>
         </section>
 
+        {/* FAQ — AEO: voice search / Google AI Overviews */}
+        <section className="border-t border-border/50 px-4 py-20">
+          <div className="mx-auto max-w-3xl">
+            <div className="text-center">
+              <Badge variant="secondary" className="mb-4">
+                FAQ
+              </Badge>
+              <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
+                Everything you need to know
+              </h2>
+            </div>
+            <div className="mt-10 space-y-2">
+              {faq.map((item, i) => (
+                <details
+                  key={i}
+                  className="group border-b border-border/50 last:border-0"
+                >
+                  <summary className="flex cursor-pointer items-center justify-between py-3 text-sm font-medium hover:text-primary transition-colors list-none">
+                    {item.q}
+                    <svg
+                      className="ml-2 size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </summary>
+                  <p className="pb-3 pr-8 text-sm text-muted-foreground">
+                    {item.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA */}
         <section className="border-t border-border/50 px-4 py-20">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
-              Ready to put your business on autopilot?
+              You run the business. Let the agent run the busywork.
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Join businesses across South Africa using AI agents to handle the
-              work that doesn&apos;t need you.
+              Join South African businesses delegating repetitive work to an AI
+              agent. 14-day free trial. No risk.
             </p>
             <div className="mt-8 flex items-center justify-center gap-3">
               <Button size="lg">Start Free Trial</Button>
@@ -304,7 +396,6 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-border/50 px-4 py-12">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
