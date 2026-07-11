@@ -257,5 +257,9 @@
   }
   html {
     @apply font-sans scroll-smooth;
+    /* decorative layers (auroras, glows) must never create horizontal
+       scroll — clip, with hidden as the fallback for older engines */
+    overflow-x: hidden;
+    overflow-x: clip;
   }
 }

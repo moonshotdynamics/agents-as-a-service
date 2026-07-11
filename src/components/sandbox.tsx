@@ -344,7 +344,7 @@ export default function Sandbox() {
       : "text-muted-foreground hover:text-foreground";
 
   return (
-    <section id="demo" className="relative scroll-mt-24 border-y border-border/50 bg-card/20 px-4 py-28 sm:py-36">
+    <section id="demo" className="relative scroll-mt-24 overflow-hidden border-y border-border/50 bg-card/20 px-4 py-28 sm:py-36">
       {/* ambient glow */}
       <div
         aria-hidden

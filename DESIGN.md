@@ -82,6 +82,10 @@ Scale and voice:
 - Backgrounds are layered, in order: aurora blobs (`.aurora-1/2`, blurred
   100px+), masked dot grid (`radial-gradient` dots, 44px cell, radial mask),
   grain (`.noise` at opacity ≤ 0.025), then content.
+- **Any section containing an absolutely-positioned ambient layer wider
+  than the mobile viewport (glows, auroras) must have `overflow-hidden`** —
+  otherwise it creates horizontal scroll on phones. `html` also carries
+  `overflow-x: clip` as a backstop, but fix it at the section.
 - Anchored sections need `scroll-mt-24` (the nav is fixed).
 
 ## 5. Motion
