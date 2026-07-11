@@ -54,7 +54,7 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="relative scroll-mt-24 px-4 py-28 sm:py-36">
+    <section id="pricing" className="relative scroll-mt-24 overflow-hidden px-4 py-28 sm:py-36">
       {/* ambient glow behind featured card */}
       <div
         aria-hidden
