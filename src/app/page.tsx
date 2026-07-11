@@ -403,10 +403,10 @@ export default function Home() {
               Agents<span className="text-primary">.</span>as
             </span>
             <div className="flex gap-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">
+              <a href="/privacy" className="hover:text-foreground transition-colors">
                 Privacy
               </a>
-              <a href="#" className="hover:text-foreground transition-colors">
+              <a href="/terms" className="hover:text-foreground transition-colors">
                 Terms
               </a>
               <a href="#" className="hover:text-foreground transition-colors">
