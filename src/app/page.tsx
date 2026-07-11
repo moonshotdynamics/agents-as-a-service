@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -76,27 +76,35 @@ function Stagger({ children, className = "" }: { children: React.ReactNode; clas
 
 function CardItem({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <motion.div variants={fadeUp} transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}>
-      <Card className={className}>{children}</Card>
+    <motion.div
+      variants={fadeUp}
+      transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+      whileHover={{ scale: 1.02, y: -2 }}
+      style={{ transformStyle: "preserve-3d", perspective: 1000 }}
+    >
+      <Card className={`transition-shadow hover:shadow-lg hover:shadow-primary/5 ${className}`}>{children}</Card>
     </motion.div>
   );
 }
 
 /* ── animated background ─────────────────── */
 
-function AnimatedGrid() {
+function ParallaxGrid() {
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, 200]);
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <motion.div
-        className="absolute inset-0 opacity-[0.03]"
+    <motion.div
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+      style={{ y }}
+    >
+      <div
+        className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: "radial-gradient(circle, rgb(139 92 246) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
+          backgroundImage: "radial-gradient(circle, rgb(139 92 246) 1.5px, transparent 1.5px)",
+          backgroundSize: "60px 60px",
         }}
-        animate={{ backgroundPosition: ["0 0", "40px 40px"] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
-    </div>
+    </motion.div>
   );
 }
 
@@ -124,7 +132,7 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero */}
         <section ref={heroRef} className="relative overflow-hidden px-4 pb-24 pt-20">
-          <AnimatedGrid />
+          <ParallaxGrid />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-transparent to-transparent" />
           <motion.div
             className="relative mx-auto max-w-3xl text-center"
@@ -136,7 +144,19 @@ export default function Home() {
             {/* @ts-expect-error web component */}
             <dotlottie-player src="/hero.lottie" autoplay loop className="mx-auto block mb-6" style={{ width: 200, height: 200 }} />
             <h1 className="text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl">
-              Hire an AI agent.<br />
+              <motion.span
+                initial="hidden"
+                animate="visible"
+                variants={stagger}
+                className="inline"
+              >
+                {["Hire", "an", "AI", "agent."].map((w, i) => (
+                  <motion.span key={i} variants={fadeUp} className="inline-block mr-[0.3em]" transition={{ duration: 0.5, delay: 0.2 }}>
+                    {w}
+                  </motion.span>
+                ))}
+              </motion.span>
+              <br />
               <span className="text-primary">One subscription. Done.</span>
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
