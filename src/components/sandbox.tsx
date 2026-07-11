@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
+import { SectionHeading, FadeIn } from "@/components/landing/primitives";
 
 /* ── industry demo data ──────────────────── */
 
@@ -206,23 +206,21 @@ function useTypingEffect(text: string, speed = 18, enabled = true) {
   const indexRef = useRef(0);
 
   useEffect(() => {
-    if (!enabled) {
-      setDisplayed(text);
-      return;
-    }
-    setDisplayed("");
+    if (!enabled) return;
     indexRef.current = 0;
+    // first tick resets to the empty string, avoiding a sync setState here
     const interval = setInterval(() => {
-      indexRef.current += 1;
       if (indexRef.current > text.length) {
         clearInterval(interval);
+        return;
       }
       setDisplayed(text.slice(0, indexRef.current));
+      indexRef.current += 1;
     }, speed);
     return () => clearInterval(interval);
   }, [text, speed, enabled]);
 
-  return displayed;
+  return enabled ? displayed : text;
 }
 
 /* ── dashboard sub-components ────────────── */
@@ -233,7 +231,7 @@ function KpiCard({ label, value, suffix = "", color }: { label: string; value: s
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="rounded-lg border border-border/40 bg-[#0a0a10] p-4"
+      className="rounded-lg border border-border/40 bg-background/60 p-4"
     >
       <p className="text-xs text-muted-foreground mb-1">{label}</p>
       <p className={`text-2xl font-semibold ${color}`}>
@@ -259,7 +257,7 @@ function BarChart({ data, color }: { data: { label: string; value: number; pct: 
             <span className="text-muted-foreground">{item.label}</span>
             <span className={color}>{item.pct}</span>
           </div>
-          <div className="h-2 rounded-full bg-[#1a1a24] overflow-hidden">
+          <div className="h-2 rounded-full bg-secondary overflow-hidden">
             <motion.div
               className={`h-full rounded-full ${color.replace("text-", "bg-")}`}
               initial={{ width: 0 }}
@@ -342,82 +340,86 @@ export default function Sandbox() {
 
   const pillBg = (v: "demo" | "dashboard") =>
     view === v
-      ? "bg-primary text-primary-foreground"
+      ? "bg-primary/20 text-foreground"
       : "text-muted-foreground hover:text-foreground";
 
   return (
-    <section className="px-4 py-20">
-      <div className="mx-auto max-w-5xl">
-        <div className="text-center mb-10">
-          <Badge variant="secondary" className="mb-4">See It In Action</Badge>
-          <h2 className="text-3xl font-light tracking-tight sm:text-4xl">
-            Watch the agent work
-          </h2>
-          <p className="mt-3 text-muted-foreground">
-            Pick an industry below. Toggle between the live demo and the analytics dashboard.
-          </p>
-        </div>
+    <section id="demo" className="relative scroll-mt-24 border-y border-border/50 bg-card/20 px-4 py-28 sm:py-36">
+      {/* ambient glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-24 h-[320px] w-[640px] -translate-x-1/2 rounded-full bg-[oklch(0.45_0.20_290)] opacity-[0.08] blur-[110px]"
+      />
+      <div className="relative mx-auto max-w-5xl">
+        <SectionHeading
+          kicker="Live demo"
+          title="Watch it"
+          accent="actually"
+          titleAfter="work."
+          sub="Pick an industry. This is the agent in real time — then flip to the dashboard it reports into."
+          className="mb-12"
+        />
 
         {/* Industry tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <FadeIn delay={0.15} className="mb-8 flex flex-wrap justify-center gap-2">
           {demos.map((d, i) => (
             <button
               key={d.label}
               onClick={() => switchIndustry(i)}
-              className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 cursor-pointer
+              className={`inline-flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] transition-all duration-300
                 ${i === active
-                  ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 scale-105"
-                  : "bg-card text-muted-foreground hover:text-foreground hover:bg-card/80 border border-border/50"
+                  ? "border border-primary/50 bg-primary/15 text-foreground shadow-[0_0_24px_oklch(0.62_0.23_290/0.25)]"
+                  : "border border-border/50 bg-card/40 text-muted-foreground hover:border-border hover:text-foreground"
                 }`}
             >
-              <span>{d.icon}</span>
+              <span className="text-sm">{d.icon}</span>
               <span className="hidden sm:inline">{d.label}</span>
             </button>
           ))}
-        </div>
+        </FadeIn>
 
         {/* Panel */}
         <motion.div
           key={`${active}-${view}`}
           initial={{ opacity: 0, y: 20, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="rounded-xl border border-border/60 bg-[#0d0d14] shadow-2xl shadow-primary/5 overflow-hidden"
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="overflow-hidden rounded-2xl border border-border/60 bg-[oklch(0.09_0.012_278)] shadow-[0_32px_90px_oklch(0_0_0/0.55)]"
         >
           {/* Title bar */}
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-border/40 bg-[#0a0a10]">
+          <div className="flex items-center gap-2 border-b border-border/40 bg-card/50 px-4 py-3">
             <div className="flex gap-1.5">
-              <span className="size-3 rounded-full bg-red-500/70" />
-              <span className="size-3 rounded-full bg-amber-500/70" />
-              <span className="size-3 rounded-full bg-green-500/70" />
+              <span className="size-2.5 rounded-full bg-[oklch(0.6_0.19_25)]/70" />
+              <span className="size-2.5 rounded-full bg-[oklch(0.75_0.15_85)]/70" />
+              <span className="size-2.5 rounded-full bg-[oklch(0.7_0.17_150)]/70" />
             </div>
-            <span className="ml-3 text-xs text-muted-foreground font-mono">
+            <span className="ml-3 font-mono text-xs text-muted-foreground">
               {view === "demo"
-                ? `agent@${active === 0 ? "realestate" : active === 1 ? "legal" : active === 2 ? "marketing" : active === 3 ? "finance" : active === 4 ? "healthcare" : "ecommerce"} — zsh`
-                : `${demo.label} — Dashboard`}
+                ? `agent@${active === 0 ? "realestate" : active === 1 ? "legal" : active === 2 ? "marketing" : active === 3 ? "finance" : active === 4 ? "healthcare" : "ecommerce"} — live`
+                : `${demo.label} — dashboard`}
             </span>
             <div className="ml-auto flex items-center gap-2">
               {/* View toggle */}
-              <div className="flex rounded-md border border-border/50 bg-[#12121a] p-0.5 mr-2">
+              <div className="mr-2 flex rounded-full border border-border/50 bg-background/60 p-0.5">
                 <button
                   onClick={() => { setView("demo"); setStep(0); setTypingEnabled(true); }}
-                  className={`px-2.5 py-1 text-xs rounded font-medium transition-colors cursor-pointer ${pillBg("demo")}`}
+                  className={`cursor-pointer rounded-full px-3 py-1 font-mono text-[11px] font-medium transition-colors ${pillBg("demo")}`}
                 >
-                  ⌨️ Demo
+                  Demo
                 </button>
                 <button
                   onClick={() => setView("dashboard")}
-                  className={`px-2.5 py-1 text-xs rounded font-medium transition-colors cursor-pointer ${pillBg("dashboard")}`}
+                  className={`cursor-pointer rounded-full px-3 py-1 font-mono text-[11px] font-medium transition-colors ${pillBg("dashboard")}`}
                 >
-                  📊 Dashboard
+                  Dashboard
                 </button>
               </div>
               {view === "demo" && (
                 <button
                   onClick={replay}
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+                  className="cursor-pointer font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  ↩ Replay
+                  ↺ Replay
                 </button>
               )}
             </div>
@@ -522,20 +524,20 @@ export default function Sandbox() {
         </motion.div>
 
         {/* Bottom toggle */}
-        <div className="mt-4 flex justify-center gap-4">
+        <div className="mt-5 flex justify-center gap-6">
           {view === "demo" && (
             <button
               onClick={() => setTypingEnabled((v) => !v)}
-              className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+              className="cursor-pointer font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground/70 transition-colors hover:text-foreground"
             >
-              {typingEnabled ? "⚡ Instant mode" : "⌨️ Typing mode"}
+              {typingEnabled ? "⏩ Skip typing" : "⌨ Type it out"}
             </button>
           )}
           <button
             onClick={() => setView(view === "demo" ? "dashboard" : "demo")}
-            className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+            className="cursor-pointer font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground/70 transition-colors hover:text-foreground"
           >
-            {view === "demo" ? "📊 Switch to Dashboard" : "⌨️ Switch to Live Demo"}
+            {view === "demo" ? "→ View the dashboard" : "→ Back to the demo"}
           </button>
         </div>
       </div>

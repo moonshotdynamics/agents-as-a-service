@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth";
+import Link from "next/link";
+import { Wordmark } from "@/components/landing/nav";
 
 /* ── industry data ───────────────────────── */
 
@@ -274,6 +276,24 @@ const colourMap: Record<string, { bg: string; text: string; border: string; ligh
   orange:   { bg: "bg-orange-500/10",  text: "text-orange-400",  border: "border-orange-500/30",  light: "bg-orange-500/20",   bar: "bg-orange-500" },
 };
 
+/* ── sidebar nav icons ───────────────────── */
+
+function NavIcon({ d }: { d: string }) {
+  return (
+    <svg viewBox="0 0 16 16" className="size-3.5 shrink-0" fill="none" aria-hidden>
+      <path d={d} stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const navItems = [
+  { icon: "M2.5 2.5h4.5v4.5H2.5zM9 2.5h4.5v4.5H9zM2.5 9h4.5v4.5H2.5zM9 9h4.5v4.5H9z", label: "Overview", active: true },
+  { icon: "M3 4.5h10M3 8h10M3 11.5h6", label: "Tasks", active: false },
+  { icon: "M2.5 13.5v-4M6.2 13.5V6M9.8 13.5V8.5M13.5 13.5v-9", label: "Analytics", active: false },
+  { icon: "M8 7.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM2.5 13.5c0-2.5 2.5-4 5.5-4s5.5 1.5 5.5 4", label: "Clients", active: false },
+  { icon: "M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4", label: "Settings", active: false },
+];
+
 /* ── dashboard ───────────────────────────── */
 
 export default function DashboardPage() {
@@ -286,72 +306,88 @@ export default function DashboardPage() {
   const today = new Date().toLocaleDateString("en-ZA", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
   return (
-    <div className="min-h-screen bg-[#06060b] flex">
+    <div className="relative flex min-h-screen bg-background">
+      {/* ambient background */}
+      <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -top-[30%] left-[20%] h-[50vh] w-[50vw] rounded-full bg-[oklch(0.45_0.20_290)] opacity-[0.06] blur-[130px]" />
+        <div className="noise absolute inset-0 opacity-[0.015]" />
+      </div>
+
       {/* ── Sidebar ──────────────────────── */}
-      <aside className="hidden lg:flex w-56 flex-col border-r border-border/40 bg-[#08080f] shrink-0">
-        <div className="px-5 py-5 border-b border-border/30">
-          <span className="text-lg font-semibold tracking-tight">
-            Agents<span className="text-primary">.</span>as
-          </span>
+      <aside className="relative z-10 hidden w-60 shrink-0 flex-col border-r border-border/50 bg-[oklch(0.095_0.012_278)]/80 backdrop-blur-sm lg:flex">
+        <div className="border-b border-border/40 px-5 py-5">
+          <Wordmark />
         </div>
 
-        <nav className="flex-1 px-3 py-4 space-y-1">
-          {[
-            { icon: "📋", label: "Overview", active: true },
-            { icon: "📝", label: "Tasks" },
-            { icon: "📊", label: "Analytics" },
-            { icon: "👥", label: "Clients" },
-            { icon: "⚙️", label: "Settings" },
-          ].map((item) => (
+        <nav className="flex-1 space-y-1 px-3 py-4">
+          {navItems.map((item) => (
             <button
               key={item.label}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors cursor-pointer
-                ${item.active ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-card/50"}`}
+              className={`relative flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-[13px] transition-colors
+                ${item.active
+                  ? "bg-primary/10 font-medium text-primary"
+                  : "text-muted-foreground hover:bg-card/60 hover:text-foreground"}`}
             >
-              <span>{item.icon}</span>
+              {item.active && (
+                <span className="absolute left-0 top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-primary shadow-[0_0_8px_oklch(0.62_0.23_290/0.6)]" />
+              )}
+              <NavIcon d={item.icon} />
               {item.label}
             </button>
           ))}
         </nav>
 
-        <div className="px-3 py-4 border-t border-border/30 space-y-2">
-          <p className="px-3 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
+        <div className="space-y-1 border-t border-border/40 px-3 py-4">
+          <p className="px-3 pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
             Industry
           </p>
           {industries.map((ind) => (
             <button
               key={ind.id}
               onClick={() => setIndustry(ind.id)}
-              className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs transition-colors cursor-pointer
+              className={`flex w-full cursor-pointer items-center gap-2.5 rounded-lg px-3 py-1.5 text-xs transition-colors
                 ${industry === ind.id ? `${c.bg} ${c.text} font-medium` : "text-muted-foreground hover:text-foreground"}`}
             >
               <span>{ind.icon}</span>
               {ind.label}
+              {industry === ind.id && (
+                <span className="relative ml-auto flex size-1.5">
+                  <span className={`status-ping relative inline-flex size-1.5 rounded-full ${c.bar} ${c.text}`} />
+                </span>
+              )}
             </button>
           ))}
         </div>
 
-        <div className="px-3 py-4 border-t border-border/30">
+        <div className="border-t border-border/40 px-3 py-4">
+          <Link
+            href="/"
+            className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <NavIcon d="M9.5 3.5 5 8l4.5 4.5" />
+            Back to site
+          </Link>
           <button
             onClick={logout}
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-muted-foreground hover:text-red-400 transition-colors cursor-pointer"
+            className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2 text-xs text-muted-foreground transition-colors hover:text-destructive"
           >
-            🚪 Sign out
+            <NavIcon d="M6 13.5H3.5a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1H6M10.5 11 13.5 8l-3-3M13.5 8H6" />
+            Sign out
           </button>
         </div>
       </aside>
 
       {/* ── Mobile industry bar ───────────── */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#08080f] border-t border-border/40 px-2 py-2 overflow-x-auto">
-        <div className="flex gap-1.5 min-w-max px-1">
+      <div className="fixed inset-x-0 bottom-0 z-40 overflow-x-auto border-t border-border/50 bg-[oklch(0.095_0.012_278)]/90 px-2 py-2 backdrop-blur-xl lg:hidden">
+        <div className="flex min-w-max gap-1.5 px-1">
           {industries.map((ind) => (
             <button
               key={ind.id}
               onClick={() => setIndustry(ind.id)}
-              className={`shrink-0 inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-all cursor-pointer
+              className={`inline-flex shrink-0 cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] transition-all
                 ${industry === ind.id
-                  ? `${colourMap[ind.color].bg} ${colourMap[ind.color].text}`
-                  : "text-muted-foreground"
+                  ? `${colourMap[ind.color].bg} ${colourMap[ind.color].text} ${colourMap[ind.color].border}`
+                  : "border-transparent text-muted-foreground"
                 }`}
             >
               <span className="text-sm">{ind.icon}</span>
@@ -362,18 +398,26 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Main content ──────────────────── */}
-      <main className="flex-1 overflow-y-auto pb-20 lg:pb-0">
+      <main className="relative z-10 flex-1 overflow-y-auto pb-20 lg:pb-0">
         {/* Top bar */}
-        <div className="sticky top-0 z-30 bg-[#06060b]/80 backdrop-blur-md border-b border-border/30 px-6 py-3 flex items-center justify-between">
+        <div className="sticky top-0 z-30 flex items-center justify-between border-b border-border/40 bg-background/70 px-6 py-3 backdrop-blur-xl">
           <div>
-            <h1 className="text-sm font-medium">
-              {current.icon} {current.label} — Overview
+            <h1 className="flex items-center gap-2 text-sm font-medium">
+              <span>{current.icon}</span> {current.label} — Overview
             </h1>
-            <p className="text-xs text-muted-foreground">{today}</p>
+            <p className="font-mono text-[11px] text-muted-foreground">{today}</p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-muted-foreground hidden sm:inline">{user?.email}</span>
-            <div className="size-8 rounded-full bg-primary/20 flex items-center justify-center text-xs font-semibold text-primary">
+            <span className="hidden items-center gap-2 rounded-full border border-border/60 bg-card/50 py-1 pl-2 pr-3 sm:flex">
+              <span className="relative flex size-1.5">
+                <span className="status-ping relative inline-flex size-1.5 rounded-full bg-emerald-400 text-emerald-400" />
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                Agent online
+              </span>
+            </span>
+            <span className="hidden text-xs text-muted-foreground md:inline">{user?.email}</span>
+            <div className="flex size-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/40 to-[oklch(0.5_0.13_220)]/40 text-xs font-semibold text-foreground ring-1 ring-primary/40">
               {user?.avatar}
             </div>
           </div>
@@ -386,14 +430,23 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-3"
+            className="grid grid-cols-2 gap-3 lg:grid-cols-4"
           >
-            {current.kpis.map((kpi, i) => (
-              <div key={kpi.label} className="rounded-xl border border-border/40 bg-card p-4">
-                <p className="text-xs text-muted-foreground mb-1">{kpi.label}</p>
+            {current.kpis.map((kpi) => (
+              <div
+                key={kpi.label}
+                className="rounded-2xl border border-border/50 bg-card/60 p-4 transition-colors duration-300 hover:border-primary/30"
+              >
+                <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+                  {kpi.label}
+                </p>
                 <div className="flex items-baseline gap-2">
-                  <span className={`text-2xl font-semibold ${c.text}`}>{kpi.value}</span>
-                  <span className={`text-xs ${kpi.up ? "text-emerald-400" : "text-red-400"}`}>
+                  <span className={`text-2xl font-light tracking-tight sm:text-3xl ${c.text}`}>{kpi.value}</span>
+                  <span
+                    className={`rounded-full px-1.5 py-0.5 font-mono text-[10px] ${
+                      kpi.up ? "bg-emerald-400/10 text-emerald-400" : "bg-red-400/10 text-red-400"
+                    }`}
+                  >
                     {kpi.change}
                   </span>
                 </div>
@@ -409,32 +462,34 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="lg:col-span-3 rounded-xl border border-border/40 bg-card p-5"
+              className="lg:col-span-3 rounded-2xl border border-border/50 bg-card/60 p-5"
             >
-              <h3 className="text-sm font-medium mb-4">Task volume — 6 month trend</h3>
+              <h3 className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                Task volume — 6 month trend
+              </h3>
               <div className="h-52 flex items-end gap-2">
                 {current.chartData.map((d, i) => {
                   const maxVal = Math.max(...current.chartData.map((x) => x.thisMonth), 1);
                   const thisH = (d.thisMonth / maxVal) * 100;
                   const lastH = (d.lastMonth / maxVal) * 100;
                   return (
-                    <div key={d.label} className="flex-1 flex flex-col items-center gap-1">
-                      <span className="text-[10px] text-muted-foreground">{d.thisMonth}</span>
-                      <div className="w-full flex flex-col justify-end" style={{ height: 170 }}>
+                    <div key={d.label} className="flex flex-1 flex-col items-center gap-1">
+                      <span className="font-mono text-[10px] text-muted-foreground">{d.thisMonth}</span>
+                      <div className="flex w-full items-end justify-center gap-1" style={{ height: 170 }}>
                         <motion.div
-                          className={`w-full rounded-t-sm ${c.light}`}
+                          className={`w-full max-w-7 rounded-t-sm ${c.light} opacity-50`}
                           initial={{ height: 0 }}
                           animate={{ height: `${lastH}%` }}
-                          transition={{ duration: 0.6, delay: i * 0.05 }}
+                          transition={{ duration: 0.6, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
                         />
                         <motion.div
-                          className={`w-full rounded-t ${c.bar}`}
+                          className={`w-full max-w-7 rounded-t-sm ${c.bar}`}
                           initial={{ height: 0 }}
                           animate={{ height: `${thisH}%` }}
-                          transition={{ duration: 0.6, delay: 0.1 + i * 0.05 }}
+                          transition={{ duration: 0.6, delay: 0.1 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
                         />
                       </div>
-                      <span className="text-[10px] text-muted-foreground">{d.label}</span>
+                      <span className="font-mono text-[10px] text-muted-foreground">{d.label}</span>
                     </div>
                   );
                 })}
@@ -451,9 +506,11 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.15 }}
-              className="lg:col-span-2 rounded-xl border border-border/40 bg-card p-5"
+              className="lg:col-span-2 rounded-2xl border border-border/50 bg-card/60 p-5"
             >
-              <h3 className="text-sm font-medium mb-3">Recent tasks</h3>
+              <h3 className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                Recent tasks
+              </h3>
               <div className="space-y-0">
                 {current.tasks.map((task) => (
                   <div key={task.id} className="flex items-start gap-2 py-2 border-b border-border/20 last:border-0">
@@ -480,9 +537,11 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.2 }}
-              className="lg:col-span-2 rounded-xl border border-border/40 bg-card p-5"
+              className="lg:col-span-2 rounded-2xl border border-border/50 bg-card/60 p-5"
             >
-              <h3 className="text-sm font-medium mb-3">Clients</h3>
+              <h3 className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                Clients
+              </h3>
               <table className="w-full text-xs">
                 <thead>
                   <tr className="text-muted-foreground border-b border-border/20">
@@ -515,9 +574,14 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.25 }}
-              className="lg:col-span-3 rounded-xl border border-border/40 bg-card p-5"
+              className="lg:col-span-3 rounded-2xl border border-border/50 bg-card/60 p-5"
             >
-              <h3 className="text-sm font-medium mb-3">Live activity</h3>
+              <h3 className="mb-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+                Live activity
+                <span className="relative flex size-1.5">
+                  <span className="status-ping relative inline-flex size-1.5 rounded-full bg-emerald-400 text-emerald-400" />
+                </span>
+              </h3>
               <div className="space-y-0">
                 {current.activity.map((a, i) => (
                   <div key={i} className="flex items-start gap-3 py-2 border-b border-border/20 last:border-0">

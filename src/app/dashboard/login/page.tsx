@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/lib/auth";
+import { Wordmark } from "@/components/landing/nav";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -20,29 +21,56 @@ export default function LoginPage() {
     if (!ok) setError("Invalid credentials. Try agent@demo.com / demo123");
   };
 
+  const inputCls =
+    "w-full rounded-xl border border-border/70 bg-background/60 px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 focus:shadow-[0_0_24px_oklch(0.62_0.23_290/0.15)]";
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#06060b] px-4">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4">
+      {/* ambient background */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="aurora-1 absolute -top-[15%] left-[10%] h-[50vh] w-[50vw] rounded-full bg-[oklch(0.45_0.20_290)] opacity-20 blur-[130px]" />
+        <div className="aurora-2 absolute bottom-[0%] right-[10%] h-[40vh] w-[40vw] rounded-full bg-[oklch(0.50_0.13_220)] opacity-15 blur-[130px]" />
+        <div
+          className="absolute inset-0 opacity-[0.10]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, oklch(0.75 0.10 285) 1px, transparent 1px)",
+            backgroundSize: "44px 44px",
+            maskImage:
+              "radial-gradient(ellipse 70% 60% at 50% 45%, black 25%, transparent 70%)",
+          }}
+        />
+        <div className="noise absolute inset-0 opacity-[0.02]" />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="w-full max-w-sm"
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="relative w-full max-w-sm"
       >
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center size-12 rounded-xl bg-primary/10 mb-4">
-            <span className="text-2xl">🤖</span>
-          </div>
-          <h1 className="text-2xl font-light tracking-tight">
-            Agents<span className="text-primary">.</span>as
+        <div className="mb-8 flex flex-col items-center text-center">
+          <Wordmark className="mb-6" />
+          <h1 className="text-3xl font-light tracking-tight sm:text-4xl">
+            Welcome{" "}
+            <span className="serif-accent bg-gradient-to-r from-[oklch(0.75_0.19_290)] to-[oklch(0.78_0.13_210)] bg-clip-text text-transparent">
+              back.
+            </span>
           </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Sign in to your agent dashboard
+          <p className="mt-2.5 text-sm text-muted-foreground">
+            Your agent kept working. See what it got done.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4 rounded-2xl border border-border/60 bg-card/50 p-6 shadow-[0_24px_80px_oklch(0_0_0/0.4)] backdrop-blur-md"
+        >
           <div>
-            <label htmlFor="email" className="block text-xs font-medium text-muted-foreground mb-1.5">
+            <label
+              htmlFor="email"
+              className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground"
+            >
               Email
             </label>
             <input
@@ -50,13 +78,16 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors"
+              className={inputCls}
               placeholder="you@company.com"
               required
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-xs font-medium text-muted-foreground mb-1.5">
+            <label
+              htmlFor="password"
+              className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground"
+            >
               Password
             </label>
             <input
@@ -64,14 +95,18 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/50 transition-colors"
+              className={inputCls}
               placeholder="••••••••"
               required
             />
           </div>
 
           {error && (
-            <motion.p initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} className="text-xs text-red-400">
+            <motion.p
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-xs text-destructive"
+            >
               {error}
             </motion.p>
           )}
@@ -79,14 +114,21 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-primary text-primary-foreground py-2.5 text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50 cursor-pointer"
+            className="btn-shine relative w-full cursor-pointer rounded-full bg-primary py-2.5 text-sm font-medium text-primary-foreground shadow-[0_0_24px_oklch(0.62_0.23_290/0.35)] transition-all duration-300 hover:bg-[oklch(0.70_0.21_287)] hover:shadow-[0_0_40px_oklch(0.62_0.23_290/0.5)] disabled:opacity-50"
           >
-            {loading ? "Signing in…" : "Sign In"}
+            {loading ? (
+              <span className="inline-flex items-center gap-2">
+                <span className="size-3 animate-spin rounded-full border-[1.5px] border-primary-foreground/40 border-t-primary-foreground" />
+                Signing in…
+              </span>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-xs text-muted-foreground/60">
-          Demo credentials are pre-filled. Any email + 3+ char password works.
+        <p className="mt-6 text-center font-mono text-[11px] text-muted-foreground/60">
+          Demo credentials pre-filled · any email + 3+ char password works
         </p>
       </motion.div>
     </div>
